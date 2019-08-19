@@ -1,70 +1,24 @@
 
-<PCName>
+new-npm-module
 =========
 maintained by [PandaClouds.com](https://pandaclouds.com)
 
-`<PCName>` provides a clean way to validate data in Parse Sever Cloud Code.
+`new-npm-module` provides a clean way to create a new Panda Clouds npm module.
 
-
-Installation
-------------
-
-1. If you want to use this library, you first need to install the [Node.js](https://nodejs.org/en/).
-
-2. When you install node.js, will also be installed [npm](https://www.npmjs.com/).
-
-3. Please run the following command.
-
-```
-npm install --save @panda-clouds/<pc-name>
-```
 
 Usage
 -----
 
-### Node.js
-
-```javascript
-const <PCName> = require('@panda-clouds/<pc-name>');
-
-// example usage
-
+1. Create the desired "new" repo on github.
+2. clone "new" into directory "X"
+3. clone this project into the same directory "X"
+4. open terminal
+5. cd /my/dirX
+6. replace the "birthday" in this script with the name of your "new" repo
 ```
-
-You can replace <PCName> with any variable.
-
-
-Methods
--------
-
-[Unit Tests] are an additional resource for learning functionality.
-
-### - mustExist()
-
-requires the property to be set,
-else throws error
-
-Example:
-
-```javascript
-Parse.Cloud.beforeSave('Book', request =>{
-	const data = new <PCName>(request);
-	data.prop('title').mustExist();    // will throw Error if request.object.get('title') doesn't exist
-});
+export NEW_NPM_PROJECT="birthday" && ls ./${NEW_NPM_PROJECT} && cp -r ./new-npm-module/* ./${NEW_NPM_PROJECT} && cp ./new-npm-module/.eslintignore ./${NEW_NPM_PROJECT} && cp ./new-npm-module/.eslintrc.js ./${NEW_NPM_PROJECT} && cp ./new-npm-module/.gitignore ./${NEW_NPM_PROJECT} && cp ./new-npm-module/.npmrc-deploy ./${NEW_NPM_PROJECT} && rm ./${NEW_NPM_PROJECT}/README.md && mv ./${NEW_NPM_PROJECT}/new_README.md ./${NEW_NPM_PROJECT}/README.md
 ```
-
-
-
-Contributions
--------------
-
-Pull requests are welcome! here is a checklist to speed things up:
-
-- modify `<PCName>.js`
-- add unit tests in `<PCName>.spec.js`
-- run `npm test`
-- document method in `README.md`
-- add your name to 'Contributors' in `README.md`
+7. paste the command in to termial and press "enter"
 
 
 ### Contributors
@@ -73,5 +27,3 @@ Pull requests are welcome! here is a checklist to speed things up:
 
 - [*] [Marc Smith](https://github.com/mrmarcsmith)
 
-
-[Unit Tests]: https://github.com/panda-clouds/string/blob/master/spec/<PCName>.spec.js
