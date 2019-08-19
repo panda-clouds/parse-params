@@ -3,7 +3,7 @@
 =========
 maintained by [PandaClouds.com](https://pandaclouds.com)
 
-`<PCName>` provides a clean way to validate data in Parse Sever Cloud Code.
+`<PCName>` provides a clean way to <description>.
 
 
 Installation
@@ -16,7 +16,7 @@ Installation
 3. Please run the following command.
 
 ```
-npm install --save @panda-clouds/<pc-name>
+npm install --save @panda-clouds/<panda-blank>
 ```
 
 Usage
@@ -25,7 +25,7 @@ Usage
 ### Node.js
 
 ```javascript
-const <PCName> = require('@panda-clouds/<pc-name>');
+const <PCName> = require('@panda-clouds/<panda-blank>');
 
 // example usage
 

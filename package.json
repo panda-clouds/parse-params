@@ -1,10 +1,10 @@
 {
-  "name": "@panda-clouds/panda-blank",
+  "name": "@panda-clouds/<panda-blank>",
   "scripts": {
     "pretest": "eslint .",
     "test": "jest"
   },
-  "description": "<>",
+  "description": "<description>",
   "version": "0.1.0",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "url": "https://github.com/mrmarcsmith"
   },
   "license": "MIT",
-  "main": "src/<>.js",
+  "main": "src/<PCName>.js",
   "engines": {
     "node": ">= 8"
   },
