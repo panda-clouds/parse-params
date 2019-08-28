@@ -1,5 +1,5 @@
 
-const <> = require('../src/<PCName>.js');
+const <PCName> = require('../src/<PCName>.js');
 const PCParseRunner = require('@panda-clouds/parse-runner');
 
 describe('the <PCName>.js class', () => {

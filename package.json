@@ -1,7 +1,7 @@
 {
   "name": "@panda-clouds/<panda-blank>",
   "scripts": {
-    "pretest": "eslint .",
+    "pretest": "eslint --fix .",
     "test": "jest"
   },
   "description": "<description>",
