@@ -1,29 +1,30 @@
 {
-  "name": "@panda-clouds/<panda-blank>",
+  "name": "@panda-clouds/parse-params",
   "scripts": {
     "pretest": "eslint --fix .",
     "test": "jest"
   },
-  "description": "<description>",
+  "description": "Parameter util for Parse Cloud functions",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/panda-clouds/<panda-blank>.git"
+    "url": "https://github.com/panda-clouds/parse-params.git"
   },
   "author": {
-    "name": "Marc Smith",
-    "email": "mr.marcsmith@me.com",
-    "url": "https://github.com/mrmarcsmith"
+    "name": "Scott Runyon",
+    "email": "eastempireconsulting@gmail.com",
+    "url": "https://github.com/east-empire"
   },
   "license": "MIT",
-  "main": "src/<PCName>.js",
+  "main": "src/PCParseParams.js",
   "engines": {
     "node": ">= 8"
   },
   "devDependencies": {
     "@panda-clouds/eslint-config-panda-clouds": "^0.9.0",
-    "eslint": "^6.2.0",
-    "eslint-plugin-jasmine": "^2.10.1",
-    "jest": "^24.9.0"
+    "@panda-clouds/parse-runner": "^0.26.0",
+    "eslint-plugin-jest": "^22.6.4",
+    "jest": "^24.8.0",
+    "mongodb": "^3.2.6"
   }
 }
