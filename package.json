@@ -1,7 +1,7 @@
 {
   "name": "@panda-clouds/parse-params",
   "scripts": {
-    "pretest": "eslint --fix .",
+    "pretest": "eslint .",
     "test": "jest"
   },
   "description": "Parameter util for Parse Cloud functions",
