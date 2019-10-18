@@ -5,3 +5,4 @@ coverage/*
 jest_0/
 .nyc_output/
 .nyc_cache/
+v8-compile-cache-0/

@@ -1,7 +1,7 @@
 class PCParseParams {
 	static areParamsDefined(params, req_list) {
 		for (let i = 0; i < req_list.length; ++i) {
-			if (!params.hasOwnProperty(req_list[i])) {
+			if (!Object.prototype.hasOwnProperty.call(params, req_list[i])) {
 				return false;
 			}
 		}
@@ -12,7 +12,7 @@ class PCParseParams {
 	static paramTypeCheck(params, req_list, verbose = false) {
 		for (const [key, value] of Object.entries(req_list)) {
 			// is the param defined?
-			if (!params.hasOwnProperty(key)) {
+			if (!Object.prototype.hasOwnProperty.call(params, key)) {
 				if (verbose) {
 					throw Error('Param not defined (' + key + ')');
 				} else {
@@ -36,13 +36,13 @@ class PCParseParams {
 	}
 
 	static boundsCheck(value, bounds) {
-		if (bounds.hasOwnProperty('lower')) {
+		if (Object.prototype.hasOwnProperty.call(bounds, 'lower')) {
 			if (value < bounds.lower) {
 				throw Error('Value out of bounds');
 			}
 		}
 
-		if (bounds.hasOwnProperty('upper')) {
+		if (Object.prototype.hasOwnProperty.call(bounds, 'upper')) {
 			if (value > bounds.upper) {
 				throw Error('Value out of bounds');
 			}
