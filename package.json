@@ -23,6 +23,7 @@
   "devDependencies": {
     "@panda-clouds/eslint-config-panda-clouds": "^0.9.0",
     "@panda-clouds/parse-runner": "^0.26.0",
+    "eslint": "^6.5.1",
     "eslint-plugin-jest": "^22.6.4",
     "jest": "^24.8.0",
     "mongodb": "^3.2.6"
