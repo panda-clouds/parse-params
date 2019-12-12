@@ -167,4 +167,30 @@ describe('the PCParamsUtil.js class', () => {
 			expect(result).toBe(true);
 		});
 	});
+
+	describe('paramIsDefined', () => {
+		it('should return true if the param is defined', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.callHelper('paramIsDefined', [{ key: 'value' }, 'key']);
+
+			expect(result).toBe(true);
+		});
+
+		it('should return false if the param is not defined', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.callHelper('paramIsDefined', [{ key: 'value' }, 'value']);
+
+			expect(result).toBe(false);
+		});
+
+		it('should return false if there are no params', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.callHelper('paramIsDefined', [{}, 'key']);
+
+			expect(result).toBe(false);
+		});
+	});
 });

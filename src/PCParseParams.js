@@ -50,6 +50,10 @@ class PCParseParams {
 
 		return true;
 	}
+
+	static paramIsDefined(params, key) {
+		return Object.prototype.hasOwnProperty.call(params, key);
+	}
 }
 
 module.exports = PCParseParams;
