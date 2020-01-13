@@ -9,26 +9,38 @@ class PCParseParams {
 		return true;
 	}
 
-	static paramTypeCheck(params, req_list, verbose = false) {
+	static paramTypeCheck(params, req_list, verbosity = 0) {
 		for (const [key, value] of Object.entries(req_list)) {
 			// is the param defined?
 			if (!Object.prototype.hasOwnProperty.call(params, key)) {
-				if (verbose) {
-					throw Error('Param not defined (' + key + ')');
-				} else {
-					throw Error('Param not defined');
+				let err_str = 'Param not defined';
+
+				if (verbosity > 0) {
+					err_str += ' (' + key + ')';
 				}
+
+				if (verbosity > 1) {
+					err_str += ' (' + JSON.stringify(params, null, 2) + ')';
+				}
+
+				throw Error(err_str);
 			}
 
 			// is it the correct type?
 			const type = typeof(params[key]);
 
 			if ((type !== value) && (value !== 'na')) {
-				if (verbose) {
-					throw Error('Type mismatch (' + key + ': ' + type + ', ' + value + ')');
-				} else {
-					throw Error('Type mismatch');
+				let err_str = 'Type mismatch';
+
+				if (verbosity > 0) {
+					err_str += ' (' + key + ': ' + type + ', ' + value + ')';
 				}
+
+				if (verbosity > 1) {
+					err_str += ' (' + JSON.stringify(params, null, 2) + ')';
+				}
+
+				throw Error(err_str);
 			}
 		}
 

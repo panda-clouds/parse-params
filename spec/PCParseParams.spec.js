@@ -125,7 +125,16 @@ describe('the PCParamsUtil.js class', () => {
 			const params = {};
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, true])).rejects.toThrow('Param not defined (param1)');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 1])).rejects.toThrow('Param not defined (param1)');
+		});
+
+		it('should error very verbose missing param', async () => {
+			expect.assertions(1);
+
+			const params = {};
+			const req = { param1: 'string' };
+
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 2])).rejects.toThrow('Param not defined (param1)');
 		});
 
 		it('should error verbose type mismatch', async () => {
@@ -134,7 +143,16 @@ describe('the PCParamsUtil.js class', () => {
 			const params = { param1: 69 };
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, true])).rejects.toThrow('Type mismatch (param1: number, string)');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 1])).rejects.toThrow('Type mismatch (param1: number, string)');
+		});
+
+		it('should error very verbose type mismatch', async () => {
+			expect.assertions(1);
+
+			const params = { param1: 69 };
+			const req = { param1: 'string' };
+
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 2])).rejects.toThrow('Type mismatch (param1: number, string)');
 		});
 	});
 
