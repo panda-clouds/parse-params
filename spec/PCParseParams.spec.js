@@ -211,4 +211,44 @@ describe('the PCParamsUtil.js class', () => {
 			expect(result).toBe(false);
 		});
 	});
+
+	describe('paramsNotEmpty', () => {
+		it('should return true', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.callHelper('paramsNotEmpty', [{ one: 'one', two: 'two' }, ['one', 'two']]);
+
+			expect(result).toBe(true);
+		});
+
+		it('should return false', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.callHelper('paramsNotEmpty', [{ one: 'one', two: '' }, ['one', 'two']]);
+
+			expect(result).toBe(false);
+		});
+	});
+
+	describe('mustNotBeEmpty', () => {
+		it('should return true', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.callHelper('mustNotBeEmpty', [{ one: 'one', two: 'two' }, ['one', 'two']]);
+
+			expect(result).toBe(true);
+		});
+
+		it('should error', async () => {
+			expect.assertions(1);
+
+			await expect(parseRunner.callHelper('mustNotBeEmpty', [{ one: 'one', two: '' }, ['one', 'two']])).rejects.toThrow('Value not defined');
+		});
+
+		it('should custom error', async () => {
+			expect.assertions(1);
+
+			await expect(parseRunner.callHelper('mustNotBeEmpty', [{ one: 'one', two: '' }, ['one', 'two'], 'custom message'])).rejects.toThrow('custom message');
+		});
+	});
 });

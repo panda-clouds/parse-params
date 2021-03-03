@@ -66,6 +66,24 @@ class PCParseParams {
 	static paramIsDefined(params, key) {
 		return Object.prototype.hasOwnProperty.call(params, key);
 	}
+
+	static paramsNotEmpty(params, keys) {
+		for (const key of keys) {
+			if (params[key] === null || params[key] === '') {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	static mustNotBeEmpty(params, keys, msg = 'Value not defined') {
+		if (!PCParseParams.paramsNotEmpty(params, keys)) {
+			throw new Error(msg);
+		}
+
+		return true;
+	}
 }
 
 module.exports = PCParseParams;
