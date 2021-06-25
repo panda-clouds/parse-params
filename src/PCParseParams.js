@@ -15,13 +15,22 @@ class PCParseParams {
 			if (!Object.prototype.hasOwnProperty.call(params, key)) {
 				let err_str = 'Param not defined';
 
-				if (verbosity > 0) {
+				if (verbosity > 1) {
 					err_str += ' (' + key + ')';
 				}
 
-				if (verbosity > 1) {
+				if (verbosity > 2) {
 					err_str += ' (' + JSON.stringify(params, null, 2) + ')';
 				}
+
+				if (verbosity === 0) {
+					if (process.env.PARAM_NOT_DEFINED_MSG) {
+						err_str = process.env.PARAM_NOT_DEFINED_MSG;
+					} else {
+						err_str = '500 internal server error: insufficient data';
+					}
+				}
+
 
 				throw Error(err_str);
 			}
@@ -32,12 +41,20 @@ class PCParseParams {
 			if ((type !== value) && (value !== 'na')) {
 				let err_str = 'Type mismatch';
 
-				if (verbosity > 0) {
+				if (verbosity > 1) {
 					err_str += ' (' + key + ': ' + type + ', ' + value + ')';
 				}
 
-				if (verbosity > 1) {
+				if (verbosity > 2) {
 					err_str += ' (' + JSON.stringify(params, null, 2) + ')';
+				}
+
+				if (verbosity === 0) {
+					if (process.env.PARAM_MISMATCH_MSG) {
+						err_str = process.env.PARAM_MISMATCH_MSG;
+					} else {
+						err_str = '500 internal server error: incompatable data';
+					}
 				}
 
 				throw Error(err_str);

@@ -1,13 +1,20 @@
 const PCParseRunner = require('@panda-clouds/parse-runner');
 
+let Parse;
+
 describe('the PCParamsUtil.js class', () => {
 	const parseRunner = new PCParseRunner();
 
 	parseRunner.helperClass('./PCParseParams.js');
 	parseRunner.projectDir(__dirname + '/..');
+	parseRunner.injectCode(`
+		Parse.Cloud.define('setEnv', request => {
+			process.env[request.params.key] = request.params.value;
+		});
+		`);
 
 	beforeAll(async () => {
-		await parseRunner.startParseServer();
+		Parse = await parseRunner.startParseServer();
 	}, 1000 * 60 * 2);
 
 	afterAll(async () => {
@@ -107,7 +114,7 @@ describe('the PCParamsUtil.js class', () => {
 			const params = {};
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req])).rejects.toThrow('Param not defined');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req])).rejects.toThrow('500 internal server error: insufficient data');
 		});
 
 		it('should error if a param is of the wrong type.', async () => {
@@ -116,7 +123,7 @@ describe('the PCParamsUtil.js class', () => {
 			const params = { param1: 69 };
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req])).rejects.toThrow('Type mismatch');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req])).rejects.toThrow('500 internal server error: incompatable data');
 		});
 
 		it('should error verbose missing param', async () => {
@@ -125,7 +132,7 @@ describe('the PCParamsUtil.js class', () => {
 			const params = {};
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 1])).rejects.toThrow('Param not defined (param1)');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 1])).rejects.toThrow('Param not defined');
 		});
 
 		it('should error very verbose missing param', async () => {
@@ -134,7 +141,7 @@ describe('the PCParamsUtil.js class', () => {
 			const params = {};
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 2])).rejects.toThrow('Param not defined (param1)');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 3])).rejects.toThrow('Param not defined (param1)');
 		});
 
 		it('should error verbose type mismatch', async () => {
@@ -143,7 +150,7 @@ describe('the PCParamsUtil.js class', () => {
 			const params = { param1: 69 };
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 1])).rejects.toThrow('Type mismatch (param1: number, string)');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 2])).rejects.toThrow('Type mismatch (param1: number, string)');
 		});
 
 		it('should error very verbose type mismatch', async () => {
@@ -152,7 +159,47 @@ describe('the PCParamsUtil.js class', () => {
 			const params = { param1: 69 };
 			const req = { param1: 'string' };
 
-			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 2])).rejects.toThrow('Type mismatch (param1: number, string)');
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 3])).rejects.toThrow('Type mismatch (param1: number, string)');
+		});
+
+		it('should show the default message(mismatch)', async () => {
+			expect.assertions(1);
+
+			const params = { param1: 69 };
+			const req = { param1: 'string' };
+
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 0])).rejects.toThrow('500 internal server error: incompatable data');
+		});
+
+		it('should show the default message(undefined)', async () => {
+			expect.assertions(1);
+
+			const params = {};
+			const req = { param1: 'string' };
+
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 0])).rejects.toThrow('500 internal server error: insufficient data');
+		});
+
+		it('should show custom message(mismatch)', async () => {
+			expect.assertions(1);
+
+			const params = { param1: 69 };
+			const req = { param1: 'string' };
+
+			await Parse.Cloud.run('setEnv', { key: 'PARAM_MISMATCH_MSG', value: 'Custom mismatch' });
+
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 0])).rejects.toThrow('Custom mismatch');
+		});
+
+		it('should show custom message(undefined)', async () => {
+			expect.assertions(1);
+
+			const params = {};
+			const req = { param1: 'string' };
+
+			await Parse.Cloud.run('setEnv', { key: 'PARAM_NOT_DEFINED_MSG', value: 'Custom undefined' });
+
+			await expect(parseRunner.callHelper('paramTypeCheck', [params, req, 0])).rejects.toThrow('Custom undefined');
 		});
 	});
 
